@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/deno";
-import { DataSpace } from "jsr:@eidos/core";
+import { DataSpace } from "@eidos/core";
 import { NodeServerDatabase } from "./db-server.ts";
 import { handleFunctionCall } from "./rpc.ts";
 const app = new Hono();

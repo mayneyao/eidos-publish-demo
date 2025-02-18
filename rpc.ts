@@ -1,4 +1,4 @@
-import { DataSpace } from "jsr:@eidos/core";
+import { DataSpace } from "@eidos/core";
 
 const workerStore: {
   currentCallUserId: string | null;
