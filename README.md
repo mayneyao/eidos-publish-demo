@@ -16,5 +16,5 @@ put your db file and static file in `data` folder, the folder structure should b
 ## Dev
 
 ```
-deno task start
+deno task dev
 ```
