@@ -5,7 +5,7 @@
   },
   "tasks": {
     "dev": "deno run --allow-net --unstable-broadcast-channel main.ts",
-    "build": "deno compile --allow-net --allow-env --allow-read --allow-ffi --unstable-broadcast-channel --output=eidos-publish main.ts",
+    "build": "deno compile --allow-net --allow-env --allow-read --allow-write --allow-ffi --unstable-broadcast-channel --output=eidos-publish main.ts",
     "start": "./eidos-publish"
   },
   "compilerOptions": {
