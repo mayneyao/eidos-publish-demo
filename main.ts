@@ -9,8 +9,15 @@ const db = new NodeServerDatabase({
   path: "./data/db.sqlite3",
 });
 
-const nodes = await db.selectObjects("select * from eidos__tree");
-console.log(nodes[0]);
+try {
+  const nodes = await db.selectObjects("select * from eidos__tree");
+  console.log(nodes[0]);
+} catch (error) {
+  console.error('Database error:', error);
+  console.error('Current working directory:', Deno.cwd());
+  console.error('Directory contents:', Deno.readDirSync('./data'));
+  throw error;
+}
 
 const dataSpace = new DataSpace({
   db: db,

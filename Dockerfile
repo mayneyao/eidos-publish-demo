@@ -1,11 +1,15 @@
 FROM denoland/deno
- 
+
 WORKDIR /app
- 
-COPY * /app
+
+RUN mkdir -p /app/data
+
+COPY . /app/
+
+RUN chmod -R 755 /app/data
 
 RUN deno cache main.ts
- 
+
 ARG PORT
 EXPOSE ${PORT:-8000}
 
