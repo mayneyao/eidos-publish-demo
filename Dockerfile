@@ -11,8 +11,8 @@ RUN mkdir -p /build/dist-simple
 
 # Copy the download script and any necessary files
 COPY scripts/ /build/scripts/
-COPY deno.json* /build/ 2>/dev/null || :
-COPY import_map.json /build/ 2>/dev/null || :
+COPY deno.json /build/
+COPY deno.lock /build/
 
 # Download libsimple dependency
 RUN deno run --allow-net --allow-read --allow-write --allow-run --allow-env scripts/download-simple.ts
