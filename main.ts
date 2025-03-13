@@ -73,4 +73,4 @@ app.use("/*", serveStatic({ root: "./www" }));
 // fallback to index.html
 app.use("*", serveStatic({ path: "./www/index.html" }));
 
-Deno.serve(app.fetch);
+Deno.serve({ port: 8080 }, app.fetch);
