@@ -86,32 +86,36 @@ export class NodeServerDatabase extends BaseServerDatabase {
     bind?: any[];
     rowMode?: "array" | "object";
   }) {
-    if (typeof opts === "string") {
-      return this.db.exec(opts);
-    } else if (typeof opts === "object") {
-      const { sql, bind } = opts;
-      const _bind = bind?.map((item: any) => {
-        // if item is boolean return 1 or 0
-        if (typeof item === "boolean") {
-          return item ? 1 : 0;
+    try {
+      if (typeof opts === "string") {
+        return this.db.exec(opts);
+      } else if (typeof opts === "object") {
+        const { sql, bind } = opts;
+        const _bind = bind?.map((item: any) => {
+          // if item is boolean return 1 or 0
+          if (typeof item === "boolean") {
+            return item ? 1 : 0;
+          }
+          return item;
+        });
+        const stmt = this.db.prepare(sql);
+        let res = null;
+        if (stmt.readonly) {
+          res = stmt.all(_bind);
+          // console.log("res", res);
+        } else {
+          if (_bind == null) {
+            return stmt.run();
+          }
+          return stmt.run(_bind);
         }
-        return item;
-      });
-      const stmt = this.db.prepare(sql);
-      let res = null;
-      if (stmt.readonly) {
-        res = stmt.all(_bind);
-        // console.log("res", res);
-      } else {
-        if (_bind == null) {
-          return stmt.run();
+        if (opts.rowMode === "array") {
+          return res.map((item: any) => Object.values(item));
         }
-        return stmt.run(_bind);
+        return res;
       }
-      if (opts.rowMode === "array") {
-        return res.map((item: any) => Object.values(item));
-      }
-      return res;
+    } catch (error) {
+      console.error("Error executing SQL:", error);
     }
     return [];
   }
